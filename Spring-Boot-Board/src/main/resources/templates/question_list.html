@@ -1,0 +1,79 @@
+<html layout:decorate = "~{layout}">
+
+<meta charset="UTF-8">
+
+<div layout:fragment="content" class="container my-3">
+<table class="table">
+<thead class="table-dark">
+	<tr class="text-center">
+		<th>번호</th>
+		<th style="width:50%">제목</th>
+		<th>글쓴이</th>
+		<th>작성일</th>
+	</tr>
+<tbody>
+	<tr th:each="question,loop : ${paging}">
+		<td th:text="${paging.totalElements - (paging.number*paging.size)-loop.index}"></td>
+		<td class="text-start">
+		<a th:href="@{|/question/detail/${question.id}|}"
+		th:text="${question.subject}"></a>
+		
+		<span class="badge bg-secondary"
+			th:if="${#lists.size(question.answerList)>0}"
+			th:text="${#lists.size(question.answerList)}">
+		
+		</span>
+		
+		</td>
+		<td><span th:if="${question.author!=null}"
+			th:text="${question.author.userName}"></span>
+			<span th:if="${question.author==null}"
+ 			 th:text="익명"></td>
+		<td th:text="${#temporals.format(question.createdDate,'yyyy-MM-dd HH:mm')}"></td>
+		<!-- temporals.format : 타임리프의 날짜형식 명령어. -->
+	</tr>
+</tbody>
+</table>
+
+<!-- 페이징 처리 시작 -->
+<div th:if="(${!paging.isEmpty()})">
+<nav aria-label="Page navigation">
+	<ul class="pagination justify-content-center"
+	th:with="startNumber=${(paging.number/10)}*10+1,
+	endNumber=(${paging.totalPages} >${startNumber}+9) ? 
+	${startNumber}+9 : ${paging.totalPages}">
+		<li><a class="page-link" th:href="@{/question/list?page=1}">&laquo;</a></li>
+		<!-- th:href="@{|?page=1|} 와 같다. -->
+		
+		<li class="page-item" th:style="${paging.first}?'display:none'">
+			<a class="page-link" th:href="@{/question/list(page=${paging.number})}">&lsaquo;</a>
+			<!-- th:href="@{|?page=${paging.number}|} -->
+		</li>
+		
+		<li class="page-item" th:each="page : ${#numbers.sequence(startNumber,endNumber)}"
+			th:classappend="(${page}==${paging.number}+1) ? 'active'">
+			<a class="page-link" th:href="@{/question/list(page=${page})}"
+			th:text="${page}"></a>
+			<!-- th:href="@{|?page=${page}|} -->
+		</li>
+		
+		<li class="page-item" th:style="${paging.last}?'display:none'">
+			<a class="page-link" th:href="@{/question/list(page=${paging.number}+2)}">&rsaquo;</a>
+			<!-- th:href="@{|?page=${paging.number+2}|} -->
+		</li>
+		
+		<li><a class="page-link" th:href="@{/question/list(page=${paging.totalPages})}">&raquo;</a></li>
+		<!-- th:href="@{|?page=${paging.totalPages}|} 와 같다. -->
+		
+
+
+	</ul>
+</nav>
+</div>
+<!-- 페이징 처리 끝 -->
+
+<a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
+
+</div>
+
+</html>

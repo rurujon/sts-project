@@ -1,0 +1,71 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.7'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.exe'
+version = '0.0.1-SNAPSHOT'
+//SourceCompatibility='1.8'
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(8)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	
+	runtimeOnly 'com.h2database:h2'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	
+	//스프링과 관련이 있는 것들은 버전을 받을 필요가 없지만,
+	//스프링과 관계가 없는 것들은 버전까지 받아줘야 한다.
+	//commonmark
+	implementation 'org.commonmark:commonmark:0.21.0'
+	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+/*
+
+implemetation
+해당 라이브러리 설치를 위해 일반적으로 사용하는 설정
+
+developmentOnly
+Gradle의 developmentOnly는 개발환경에만 적용되는 설정
+
+compileOnly
+해당 라이브러리가 컴파일 단계에서만 필요한 경우에 사용
+
+annotationProcessor
+컴파일 단계에서 애너테이션을 분석하고 처리하기 위해 사용
+
+runtimeOnly
+해당 라이브러리가 런타임(Runtime)시에만 필요한 경우에 사용
+
+*/

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Spring Boot Board</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+
+</head>
+<body>
+
+<nav th:replace="navbar :: navbarFragment"></nav>
+
+<th:block layout:fragment="content"></th:block>
+
+<script th:src="@{/bootstrap.min.js}"></script>
+<!--  스크립트를 회사에서는 아래쪽에 넣어둔다. 에러가 나면 멈추기 떄문에. -->
+
+<th:block layout:fragment="deleteScript"></th:block>
+
+</body>
+</html>
