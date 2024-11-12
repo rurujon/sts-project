@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OAuth2 인증</title>
+</head>
+<body>
+
+<a href="/oauth2/authorization/google"><img th:src="@{/images/google.png}"></a>
+<a href="/oauth2/authorization/kakao"><img th:src="@{/images/kakao.png}"></a>
+<a href="/oauth2/authorization/naver"><img th:src="@{/images/naver.png}"></a>
+
+<br/><br/>
+
+이름 : <b th:text="${name}"></b>
+이메일 : <b th:text="${email}"></b>
+프로필 사진 : <p><img th:src="@{${picture}}" width="200" height="200"/></p>
+
+<br/><br/>
+
+<a href="/logout">logout</a>
+
+<br/><br/>
+
+
+</body>
+</html>
